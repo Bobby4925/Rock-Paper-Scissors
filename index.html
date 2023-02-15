@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<p>Rock Paper Scissors</p>
+	<div id="rps-buttons">
+		<button id="Rock">Rock</button>
+		<button id="Paper">Paper</button>
+		<button id="Scissors">Scissors</button>
+	</div>
+	<p id="outcome_p"></p>
+	<button onclick="link()">Link</button>
+	<p>Score</p>
+	<p id="scoreCount"></p>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	function link(){
+		window.location.href = '/restart.html';
+	}
+	let userInput;
+	function user(){
+		let username = prompt("Please enter your username",userInput);
+		console.log(username);
+		//socket.emit('user',username)
+	}
+	user();
+	function rps(event) {
+		socket.emit('action', event.target.id);
+	}
+	var socket = io();
+	const rps_buttons = document.getElementById("rps-buttons")
+	rps_buttons.addEventListener("click", rps)
+	// x is the from the server which states who wins
+	socket.on("action", (x) => {
+		const outcome = document.getElementById("outcome_p")
+		outcome.innerHTML = x;
+	});
+	socket.on("score", (num) =>{
+		const score = document.getElementById("scoreCount");
+		score.innerHTML = num;
+		socket.emit('highScore',(num));
+	});
+</script>
+</body>
+</html>
