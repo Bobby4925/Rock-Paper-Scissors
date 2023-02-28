@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@replit/database": "^2.0.2",
-    "@types/node": "^18.0.6",
     "express": "^4.18.2",
     "node-fetch": "^3.2.6",
-    "socket.io": "^4.5.4"
+    "socket.io": "^4.5.4",
+    "sequelize": "6.29.0",
+    "sqlite3": "5.1.4"
   }
 }
